@@ -4,22 +4,26 @@
 <div class="container">
     <div class="row">
         <div class="col-3 p-5">
-            <img src="https://instagram.fdel27-1.fna.fbcdn.net/v/t51.2885-19/s150x150/97566921_2973768799380412_5562195854791540736_n.jpg?_nc_ht=instagram.fdel27-1.fna.fbcdn.net&_nc_ohc=KyPmDrrmIA0AX84Oymg&oh=52b394af1389faf7985c04eb632f10d5&oe=5F0F6F67"
-                class="rounded-circle" alt="">
+            <img src="/storage/{{$user->profile->image}}" class="rounded-circle w-100" alt="">
         </div>
         <div class="col-9 pt-5">
             <div class="d-flex justify-content-between align-items-baseline">
                 <h1>{{ $user->username }}</h1>
+                @can('update', $user->profile)
                 <a class="btn btn-primary" href="/p/create">Add New Post</a>
+                @endcan
             </div>
-            <div class="d-flex">
+            @can('update', $user->profile)
+            <a class="btn btn-primary" href="/profile/{{ $user->id }}/edit">Edit Profile</a>
+            @endcan
+            <div class="d-flex pt-2">
                 <div class="pr-5"><strong>{{ $user->posts->count() }}</strong> posts</div>
                 <div class="pr-5"><strong>23k</strong> followers</div>
                 <div class="pr-5"><strong>212</strong> following</div>
             </div>
-            <div class="pt-4 font-weight-bold">{{ $user->profile->title ?? ''}}</div>
-            <div>{{ $user->profile->description ?? '' }}</div>
-            <div><a href="#">{{ $user->profile->url ?? '' }}</a></div>
+            <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
+            <div>{{ $user->profile->description }}</div>
+            <div><a href="#">{{ $user->profile->url }}</a></div>
         </div>
     </div>
     <div class="row pt-4">
